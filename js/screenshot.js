@@ -7,30 +7,21 @@
 var video = document.querySelector( 'video' );
 var canvas = document.querySelector( 'canvas' );
 var con = canvas.getContext("2d");
-var server_url = "http://work.org/";
-
+//var image_upload_url = "http://work.org/";
+var image_upload_url = "http://work.org/nw/desktopscreenshot/server_side/image_upload.php";
 var track = null;
 var dcm = nw.Screen.DesktopCaptureMonitor;
 nw.Screen.Init();
 
 
 function upload_image(){
-   // computer_info();
+
     var dataURL = canvas.toDataURL();
-    var time_element = document.getElementById('time').outerHTML,
-        time = time_element.replace( '<h2 id="time">', '' ),
-        new_time = time.replace( '</h2>','' );
-    var name_element = document.getElementById('hostname').outerHTML,
-        name = name_element.replace('<h2 id="hostname">',''),
-        new_name = name.replace('</h2>','');
-
-
-
-var url = server_url + "/image_upload.php";
-    console.log( url );
+    
+    console.log( image_upload_url );
     $.ajax({
         type: "POST",
-        url: url,
+        url: image_upload_url,
         data: {
             image : dataURL
         },
@@ -38,8 +29,6 @@ var url = server_url + "/image_upload.php";
             console.log('saved');
             console.log(re);
             dataURL = null;
-            time_element = null;
-            name_element = null;
         }
     });
 
@@ -47,13 +36,20 @@ var url = server_url + "/image_upload.php";
 
 
 function draw( video, canvas ) {
-    computer_info();
+
 
     if (video.srcObject != null) {
-        canvas.height = video.videoHeight;
-        canvas.width = video.videoWidth;
-        con.drawImage(video, 0, 0, canvas.width, canvas.height);
-        track.stop();
+        try {
+            canvas.height = video.videoHeight;
+            canvas.width = video.videoWidth;
+            con.drawImage(video, 0, 0, canvas.width, canvas.height);
+            track.stop();
+        }
+        catch ( e ) {
+            console.log(e);
+            alert("Error on handling video tag");
+        }
+        
         video.srcObject = null;
         upload_image();
         setTimeout(function () {
@@ -70,20 +66,15 @@ function draw( video, canvas ) {
 }
 
 
-function computer_info(){
-    var exec = require('child_process').exec, hostname, time;
-    exec('hostname', function(error, stdout, stderr) {
-        document.getElementById('hostname').innerHTML = stdout;
-    });
-    exec('time /T', function(error, stdout, stderr) {
-        document.getElementById("time").innerHTML = stdout;
-    });
-}
-
 function success( stream ){
+    console.log( 'success' );
+    console.log( stream );
     track = stream.getTracks()[0];  // if only one media track
+    console.log( track );
+
     video.srcObject = stream;
-    //  console.log( video );
+    //video.srcObject = track;
+    console.log( video );
 }
 
 function fallback( error ){
