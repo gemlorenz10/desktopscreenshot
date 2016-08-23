@@ -7,6 +7,7 @@
 var video = document.querySelector( 'video' );
 var canvas = document.querySelector( 'canvas' );
 var con = canvas.getContext("2d");
+var server_url = "http://work.org/nw/desktopscreenshot/server_side/";
 
 var track = null;
 var dcm = nw.Screen.DesktopCaptureMonitor;
@@ -23,22 +24,20 @@ function upload_image(){
         name = name_element.replace('<h2 id="hostname">',''),
         new_name = name.replace('</h2>','');
 
-    //console.log( new_time );
-    $.ajax({
-        type: "POST",
-        url: "http://localhost/image_upload.php",
-        data: {
-            computer_name: new_name,
-            time : new_time,
-            image: dataURL
-        }
-    }).done(function() {
-        console.log('saved');
-        console.log(this);
-        dataURL = null;
-        time_element = null;
-        name_element = null;
 
+
+var url = server_url + "/image_upload.php?image=" + dataURL;
+    console.log( url );
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function(re) {
+            console.log('saved');
+            console.log(re);
+            dataURL = null;
+            time_element = null;
+            name_element = null;
+        }
     });
 
 }
