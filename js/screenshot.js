@@ -7,7 +7,7 @@
 var video = document.querySelector( 'video' );
 var canvas = document.querySelector( 'canvas' );
 var con = canvas.getContext("2d");
-var server_url = "http://work.org/nw/desktopscreenshot/server_side/";
+var server_url = "http://localhost";
 
 var track = null;
 var dcm = nw.Screen.DesktopCaptureMonitor;
@@ -26,11 +26,14 @@ function upload_image(){
 
 
 
-var url = server_url + "/image_upload.php?image=" + dataURL;
+var url = server_url + "/image_upload.php";
     console.log( url );
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: url,
+        data: {
+            image : dataURL
+        },
         success: function(re) {
             console.log('saved');
             console.log(re);
