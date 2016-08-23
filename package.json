@@ -1,0 +1,10 @@
+{
+  "name": "CMS Withcenter",
+  "main": "desktop.html",
+
+  "window": {
+    "toolbar": true
+  }
+
+}
+
