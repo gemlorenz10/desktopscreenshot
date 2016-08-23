@@ -7,7 +7,7 @@
 var video = document.querySelector( 'video' );
 var canvas = document.querySelector( 'canvas' );
 var con = canvas.getContext("2d");
-var server_url = "http://localhost";
+var server_url = "http://work.org/";
 
 var track = null;
 var dcm = nw.Screen.DesktopCaptureMonitor;
