@@ -1,8 +1,10 @@
 /**
  * Created by ontue on 8/19/2016.
  */
-'use strict'
+'use strict';
 
+var fs = require('fs');
+var sys = require('sys');
 
 var video = document.querySelector( 'video' );
 var canvas = document.querySelector( 'canvas' );
@@ -16,7 +18,7 @@ nw.Screen.Init();
 
 function upload_image(){
 
-    var dataURL = canvas.toDataURL();
+    var dataURL = canvas.toDataURL('image/png');
     
     console.log( image_upload_url );
     $.ajax({
@@ -91,8 +93,8 @@ function get_stream( success, fallback ){
                 mandatory: {
                     chromeMediaSource: 'desktop',
                     chromeMediaSourceId: dcm.registerStream(id),
-                    maxWidth: screen.width,
-                    maxHeight: screen.height
+                    maxWidth: 1200,
+                    maxHeight: 720
                 }
             }
         };
@@ -104,3 +106,8 @@ function get_stream( success, fallback ){
     });
 }
 draw( video, canvas );
+/*
+//Write the image locally
+var buf = new Buffer(data, 'base64');
+fs.writeFile('image.png', buf);
+*/
