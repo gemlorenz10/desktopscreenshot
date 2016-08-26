@@ -10,7 +10,7 @@ else {
     $img = str_replace(' ', '+', $img);
     $data = base64_decode( $img );
     $file = 'images/image-' . time() . ".png";
-    $success = file_put_contents($file, $img);
+    $success = file_put_contents($file, $data);
     
     if ( $success ) echo 0;
     else echo 1;
