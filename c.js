@@ -1,0 +1,24 @@
+	var screenshot = require('desktop-screenshot');
+	screenshot("screenshot.png", function(error, complete) {
+		/*
+	    if(error)
+	        console.log("Screenshot failed", error);
+	    else
+	        console.log("Screenshot succeeded");
+	    */
+
+		var Client = require('sftpjs');
+		var c = Client();
+		c.on('ready', function () {
+			var file = Math.round(new Date().getTime() / 1000) + '.png';
+		  	c.put('screenshot.png', file, function (re) {
+		    //console.log(re);
+		    c.end();
+		  });
+		}).connect({
+		  host : 'dev.withcenter.com'
+		  , user : 'devtest'
+		  , password : 'Wc~0453224133,'
+		});
+
+	});
