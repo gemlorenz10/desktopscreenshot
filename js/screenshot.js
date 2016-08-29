@@ -10,7 +10,7 @@ var video = document.querySelector( 'video' );
 var canvas = document.querySelector( 'canvas' );
 var con = canvas.getContext("2d");
 var image_upload_url = "http://work.org/image_upload.php";
-//var image_upload_url = "http://work.org/nw/desktopscreenshot/server_side/image_upload.php";
+var image_upload_url = "http://work.org/nw/desktopscreenshot/server_side/image_upload.php";
 var track = null;
 var dcm = nw.Screen.DesktopCaptureMonitor;
 nw.Screen.Init();
