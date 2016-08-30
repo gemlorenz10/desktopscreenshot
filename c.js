@@ -1,24 +1,29 @@
+    'use strict';
+	const {app} = require('electron');
+    var child = require('child_process').exec;
 	var screenshot = require('desktop-screenshot');
-	screenshot("screenshot.png", function(error, complete) {
-		/*
-	    if(error)
-	        console.log("Screenshot failed", error);
-	    else
-	        console.log("Screenshot succeeded");
-	    */
+    var Client = require('sftpjs');
+    
 
-		var Client = require('sftpjs');
-		var c = Client();
-		c.on('ready', function () {
-			var file = Math.round(new Date().getTime() / 1000) + '.png';
-		  	c.put('screenshot.png', file, function (re) {
-		    //console.log(re);
-		    c.end();
-		  });
-		}).connect({
-		  host : 'dev.withcenter.com'
-		  , user : 'devtest'
-		  , password : 'Wc~0453224133,'
-		});
+    screenshot( "screenshot.png", function(error, complete) {
+        var c = Client();
+
+        child("hostname", function(err, stdout,stderr){
+            var hostname = stdout.replace(/\s/g, '');
+            hostname = hostname.replace("-", '');
+
+            c.on('ready', function () {
+                var file = hostname + ( Math.round(new Date().getTime() / 1000) ) + '.png';
+                c.put( 'screenshot.png', file, function () {
+                c.end();
+                app.quit();
+              });
+            }).connect({
+              host : 'dev.withcenter.com'
+              , user : 'user'
+              , password : ''
+            });
+
+        }) ;
 
 	});
