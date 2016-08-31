@@ -18,6 +18,7 @@
                 c.end();
 //                app.quit();
                     process.exit(0);
+                    process.exit(1);
               });
             }).connect({
               host : 'secret.com',
