@@ -5,7 +5,7 @@
   "main": "c.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . cmsScreen --platform=win32 --arch=all",
+    "build": "electron-packager . cmsScreen --platform=win32 --arch=all --ignore=node_modules/electron-*",
     "archive64": "asar pack cmsScreen-win32-x64/resources/app cmsScreen-win32-x64/resources/app.asar",
     "archive32": "asar pack cmsScreen-win32-x32/resources/app cmsScreen-win32-x32/resources/app.asar"
   },
@@ -20,11 +20,9 @@
   },
   "homepage": "https://github.com/gemlorenz10/desktopscreenshot#readme",
   "dependencies": {
-    "asar": "^0.12.3",
     "desktop-screenshot": "^0.1.1",
     "electron-packager": "^7.7.0",
     "electron-prebuilt": "^1.3.4",
-    "file-uploader": "^1.0.0",
     "sftpjs": "^1.3.4"
   }
 }

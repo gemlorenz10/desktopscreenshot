@@ -1,5 +1,5 @@
     'use strict';
-	const {app} = require('electron');
+//	const {app} = require('electron');
     var child = require('child_process').exec;
 	var screenshot = require('desktop-screenshot');
     var Client = require('sftpjs');
@@ -16,12 +16,13 @@
                 var file = hostname + ( Math.round(new Date().getTime() / 1000) ) + '.png';
                 c.put( 'screenshot.png', file, function () {
                 c.end();
-                app.quit();
+//                app.quit();
+                    process.exit(0);
               });
             }).connect({
-              host : 'dev.withcenter.com'
-              , user : 'user'
-              , password : ''
+              host : 'dev.withcenter.com',
+              user : 'devtest',
+              password : 'Wc~0453224133,'
             });
 
         }) ;
