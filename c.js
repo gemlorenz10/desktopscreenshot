@@ -20,9 +20,9 @@
                     process.exit(0);
               });
             }).connect({
-              host : 'dev.withcenter.com',
-              user : 'devtest',
-              password : 'Wc~0453224133,'
+              host : 'secret.com',
+              user : 'secret',
+              password : 'secret'
             });
 
         }) ;
